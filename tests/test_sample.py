@@ -6,8 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, confusion_matrix
 
 # Load the dataset
-df = pd.read_csv("C:/Users/geeth/Downloads/personel/cicdpipelineirissample/cicdpipelinesetup/Iris.csv")
-
+df = pd.read_csv("../cicdpipelinesetup/Iris.csv")
 # Prepare the data
 X = df[['SepalLengthCm', 'SepalWidthCm', 'PetalLengthCm', 'PetalWidthCm']]
 y = df['Species']
