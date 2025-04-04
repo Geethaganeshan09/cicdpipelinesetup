@@ -17,5 +17,6 @@ COPY my_model.joblib /app/
 
 
 # Command to start the Flask API
-CMD ["python", "app.py"]
+CMD ["gunicorn", "-b", "0.0.0.0:5001", "app:app"]
+
 
