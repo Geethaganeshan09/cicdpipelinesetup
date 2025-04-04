@@ -35,7 +35,8 @@ jobs:
     - name: Set up Azure ML workspace
       run: |
         az extension add -n azure-cli-ml
-        az ml workspace configure -w ws1 -g rs1
+        az configure --defaults workspace=ws1 group=rs1
+
 
     - name: Deploy model
       run: |
