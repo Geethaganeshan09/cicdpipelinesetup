@@ -40,4 +40,4 @@ jobs:
 
     - name: Deploy model
       run: |
-        az ml model deploy --model-name my_model --model-path . --overwrite --workspace-name ws1 --resource-group rs1 --inference-config inference_config.json --deployment-config deployment_config.json
+        az ml model deploy --name my-endpoint --model-name my_model --model-path . --overwrite --workspace-name ws1 --resource-group rs1 --inference-config inference_config.json --deployment-config deployment_config.json
