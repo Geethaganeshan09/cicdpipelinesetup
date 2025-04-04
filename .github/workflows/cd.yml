@@ -43,10 +43,6 @@ jobs:
         docker build . --file Dockerfile --tag cicdpipelinemodeldeploy:latest
   
         docker save cicdpipelinemodeldeploy --output "cicdpipelinemodeldeploy.tar"
-      services:
-        - docker
-      caches:
-        - docker
       artifacts:
         - "*.tar"
   
@@ -57,9 +53,7 @@ jobs:
         docker load --input cicdpipelinemodeldeploy.tar
         docker tag cicdpipelinemodeldeploy ${{ secrets.DOCKER_USERNAME }}/cicdpipelinemodeldeploy:prod-0.1.${{ github.run_number }}
         docker push ${{ secrets.DOCKER_USERNAME }}/cicdpipelinemodeldeploy:prod-0.1.${{ github.run_number }}
-        
-      services:
-        - docker
+    
 
     - name: Deploy model
       run: |
