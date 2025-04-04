@@ -1,0 +1,9 @@
+{
+    "entryScript": "inference.py",
+    "environment": {
+        "condaFile": "environment.yml",
+        "docker": {
+            "baseImage": "mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04"
+        }
+    }
+}

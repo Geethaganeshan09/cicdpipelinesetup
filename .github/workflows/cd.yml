@@ -1,0 +1,42 @@
+name: CD Pipeline for Azure ML
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Install Azure CLI
+      run: |
+        curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+    - name: Log in to Azure
+      run: |
+        
+        az login --service-principal -u ${{ secrets.AZURE_CLIENT_ID }} -p ${{ secrets.AZURE_CLIENT_SECRET }} --tenant ${{ secrets.AZURE_TENANT_ID }}
+
+    - name: Set up Azure ML workspace
+      run: |
+        az extension add -n azure-cli-ml
+        az ml workspace configure -w ws1 -g rs1
+
+    - name: Deploy model
+      run: |
+        az ml model deploy --model-name my_model --model-path . --overwrite --workspace-name ws1 --resource-group rs1 --inference-config inference_config.json --deployment-config deployment_config.json
