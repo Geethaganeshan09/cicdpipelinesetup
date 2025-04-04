@@ -39,5 +39,8 @@ jobs:
 
 
     - name: Deploy model
-      run: |
-        az ml model deploy --name my-endpoint --model-name my_model --model-path . --overwrite --workspace-name ws1 --resource-group rs1 --inference-config inference_config.json --deployment-config deployment_config.json
+      image: azure/cli:latest
+          script:
+            - az login --service-principal -u ${{ secrets.AZURE_CLIENT_ID }} -p ${{ secrets.AZURE_CLIENT_SECRET }} --tenant ${{ secrets.AZURE_TENANT_ID }}
+            - az ml online-endpoint create --name my-endpoint6 --workspace-name ws1 --resource-group rs1
+            - az ml online-deployment create --file deployment.yml --workspace-name ws1 --resource-group rs1
