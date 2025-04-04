@@ -43,11 +43,9 @@ jobs:
         docker build . --file Dockerfile --tag cicdpipelinemodeldeploy:latest
   
         docker save cicdpipelinemodeldeploy --output "cicdpipelinemodeldeploy.tar"
-      artifacts:
-        - "*.tar"
-  
-      name: Deploy model
-      deployment: Production
+
+    - name: Deploy model
+
       run: |
         docker login --username "$DOCKER_USERNAME" --password-stdin
         docker load --input cicdpipelinemodeldeploy.tar
@@ -55,7 +53,7 @@ jobs:
         docker push ${{ secrets.DOCKER_USERNAME }}/cicdpipelinemodeldeploy:prod-0.1.${{ github.run_number }}
     
 
-    - name: Deploy model
+    - name: Deploy ml endpoint
       run: |
         az login --service-principal -u ${{ secrets.AZURE_CLIENT_ID }} -p ${{ secrets.AZURE_CLIENT_SECRET }} --tenant ${{ secrets.AZURE_TENANT_ID }}
         az ml online-endpoint create --name my-endpoint6 --workspace-name ws1 --resource-group rs1
