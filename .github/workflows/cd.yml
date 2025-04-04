@@ -38,6 +38,29 @@ jobs:
         az configure --defaults workspace=ws1 group=rs1
 
 
+    - name: Build and Test
+      run: |
+        docker build . --file Dockerfile --tag cicdpipelinemodeldeploy:latest
+  
+        docker save cicdpipelinemodeldeploy --output "cicdpipelinemodeldeploy.tar"
+      services:
+        - docker
+      caches:
+        - docker
+      artifacts:
+        - "*.tar"
+  
+      name: Deploy model
+      deployment: Production
+      run: |
+        docker login --username "$DOCKER_USERNAME" --password-stdin
+        docker load --input cicdpipelinemodeldeploy.tar
+        docker tag cicdpipelinemodeldeploy ${{ secrets.DOCKER_USERNAME }}/cicdpipelinemodeldeploy:prod-0.1.${{ github.run_number }}
+        docker push ${{ secrets.DOCKER_USERNAME }}/cicdpipelinemodeldeploy:prod-0.1.${{ github.run_number }}
+        
+      services:
+        - docker
+
     - name: Deploy model
       run: |
         az login --service-principal -u ${{ secrets.AZURE_CLIENT_ID }} -p ${{ secrets.AZURE_CLIENT_SECRET }} --tenant ${{ secrets.AZURE_TENANT_ID }}
