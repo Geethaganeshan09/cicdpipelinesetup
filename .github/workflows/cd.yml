@@ -47,7 +47,7 @@ jobs:
     - name: Deploy model
 
       run: |
-        docker login --username "$DOCKER_USERNAME" --password-stdin
+        echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
         docker load --input cicdpipelinemodeldeploy.tar
         docker tag cicdpipelinemodeldeploy ${{ secrets.DOCKER_USERNAME }}/cicdpipelinemodeldeploy:prod-0.1.${{ github.run_number }}
         docker push ${{ secrets.DOCKER_USERNAME }}/cicdpipelinemodeldeploy:prod-0.1.${{ github.run_number }}
