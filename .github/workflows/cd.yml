@@ -34,7 +34,7 @@ jobs:
 
     - name: Set up Azure ML workspace
       run: |
-        az extension add -n azure-cli-ml
+        az extension remove -n azure-cli-ml
         az configure --defaults workspace=ws1 group=rs1
 
 
