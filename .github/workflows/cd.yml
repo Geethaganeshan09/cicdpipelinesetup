@@ -35,6 +35,13 @@ jobs:
     - name: Set up Azure ML workspace
       run: |
         az extension add -n azure-cli-ml
+        az extension remove -n azure-cli-ml
+        az extension add -n ml
+
+        az config set extension.dynamic_install=yes
+        az config set extension.use_dynamic_install=yes_without_prompt
+        az config set extension.dynamic_install_allow_preview=true
+
         az configure --defaults workspace=ws1 group=rs1
 
 
