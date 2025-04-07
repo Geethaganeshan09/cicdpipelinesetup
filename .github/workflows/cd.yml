@@ -42,13 +42,13 @@ jobs:
       run: |
         docker build . --file Dockerfile --tag cicdpipelinemodeldeploy:prod-0.1.11
   
-        docker save cicdpipelinemodeldeploy --output "cicdpipelinemodeldeploy.tar"
+        
 
     - name: Deploy model
 
       run: |
         echo ${{ secrets.DOCKER_PASSWORD }} | docker login --username ${{ secrets.DOCKER_USERNAME }} --password-stdin
-        docker load --input cicdpipelinemodeldeploy.tar
+        
         docker tag cicdpipelinemodeldeploy ${{ secrets.DOCKER_USERNAME }}/cicdpipelinemodeldeploy:prod-0.1.11
         docker push ${{ secrets.DOCKER_USERNAME }}/cicdpipelinemodeldeploy:prod-0.1.11
     
