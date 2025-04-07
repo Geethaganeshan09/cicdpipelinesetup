@@ -7,16 +7,18 @@ WORKDIR /app
 
 # Copy requirements and install dependencies
 COPY requirements.txt .
+COPY app.py .
+COPY my_model.joblib .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the rest of the application code
 COPY . .
 
 # Ensure the model file is copied
-COPY my_model.joblib /app/
+
 
 
 # Command to start the Flask API
-CMD ["gunicorn", "-b", "0.0.0.0:5001", "app:app"]
+CMD ["gunicorn", "-b", "0.0.0.0:5000", "app:app"]
 
 
