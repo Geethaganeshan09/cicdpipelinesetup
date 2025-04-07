@@ -40,7 +40,7 @@ jobs:
 
     - name: Build and Test
       run: |
-        docker build . --file Dockerfile --tag cicdpipelinemodeldeploy:prod-0.1.121
+        docker build . --file Dockerfile --tag cicdpipelinemodeldeploy:latest
   
         
 
@@ -49,8 +49,8 @@ jobs:
       run: |
         echo ${{ secrets.DOCKER_PASSWORD }} | docker login --username ${{ secrets.DOCKER_USERNAME }} --password-stdin
         
-        docker tag cicdpipelinemodeldeploy ${{ secrets.DOCKER_USERNAME }}/cicdpipelinemodeldeploy:prod-0.1.121
-        docker push ${{ secrets.DOCKER_USERNAME }}/cicdpipelinemodeldeploy:prod-0.1.121
+        docker tag cicdpipelinemodeldeploy ${{ secrets.DOCKER_USERNAME }}/cicdpipelinemodeldeploy:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/cicdpipelinemodeldeploy:latest
     
 
     - name: Deploy ml endpoint

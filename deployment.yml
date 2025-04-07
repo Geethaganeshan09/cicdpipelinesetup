@@ -6,7 +6,7 @@ code_configuration:
   code: .  # Path to your source code directory (contains scoring script)
   scoring_script: app.py  
 environment:
-  image: "docker.io/geethaganeshan09/cicdpipelinemodeldeploy:prod-0.1.121"  # Replace with your actual Docker Hub username
+  image: "docker.io/geethaganeshan09/cicdpipelinemodeldeploy:latest"  # Replace with your actual Docker Hub username
 instance_type: STANDARD_D2AS_V4
 
 
