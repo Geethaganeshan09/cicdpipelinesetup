@@ -51,7 +51,6 @@ jobs:
         docker load --input cicdpipelinemodeldeploy.tar
         docker tag cicdpipelinemodeldeploy ${{ secrets.DOCKER_USERNAME }}/cicdpipelinemodeldeploy:prod-0.1.11
         docker push ${{ secrets.DOCKER_USERNAME }}/cicdpipelinemodeldeploy:prod-0.1.11
-        echo "docker push successful"
     
 
     - name: Deploy ml endpoint
