@@ -10,8 +10,7 @@ COPY requirements.txt .
 COPY app.py .
 COPY my_model.joblib .
 RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install gunicorn
 # Command to start the Flask API
-CMD ["gunicorn", "-b", "0.0.0.0:5001", "app:app"]
+CMD ["python", "app.py"]
 
 

@@ -7,6 +7,10 @@ app = Flask(__name__)
 # Load the trained model
 model = joblib.load("my_model.joblib")
 
+@app.route("/")
+def home():
+    return "Welcome to the ML Prediction API!"
+
 @app.route("/predict", methods=["POST"])
 def predict():
     data = request.get_json()
@@ -22,4 +26,4 @@ def predict():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5001)
+    app.run(host="0.0.0.0", port=5000)
